@@ -52,7 +52,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     */
     Route::prefix('pembelian')->name('purchases.')->group(function () {
         Route::get('/', \App\Livewire\Transaction\PurchaseList::class)->name('index');
-        Route::get('/{purchase}', \App\Livewire\Transaction\PurchaseShow::class)->name('show');
+        Route::get('/{purchase}', \App\Livewire\Transaction\PurchaseShow::class)->name('show')->whereNumber('purchase');
     });
 
     /*
@@ -64,7 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Transaksi Pembelian (create/edit/delete)
         Route::get('/pembelian/buat', \App\Livewire\Transaction\PurchaseCreate::class)->name('purchases.create');
-        Route::get('/pembelian/{purchase}/edit', \App\Livewire\Transaction\PurchaseEdit::class)->name('purchases.edit');
+        Route::get('/pembelian/{purchase}/edit', \App\Livewire\Transaction\PurchaseEdit::class)->name('purchases.edit')->whereNumber('purchase');
         Route::delete('/pembelian/{purchase}', [ReportController::class, 'deletePurchase'])->name('purchases.destroy');
 
         // Master Supplier
