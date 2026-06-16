@@ -14,8 +14,8 @@ class UserSeeder extends Seeder
         User::create([
             'name'     => 'Admin Dapur',
             'nama'     => 'Admin Dapur Al-Bahjah',
-            'email'    => 'admin@catering.test',
-            'password' => Hash::make('password'),
+            'email'    => 'admin@cateringalbahjah.id',
+            'password' => Hash::make('admin123!'),
             'role'     => 'admin_dapur',
         ]);
 
@@ -23,8 +23,8 @@ class UserSeeder extends Seeder
         User::create([
             'name'     => 'Kepala Divisi',
             'nama'     => 'Kepala Divisi Catering',
-            'email'    => 'kepala@catering.test',
-            'password' => Hash::make('password'),
+            'email'    => 'kadiv@cateringalbahjah.id',
+            'password' => Hash::make('kadiv123!'),
             'role'     => 'kepala_divisi',
         ]);
     }
