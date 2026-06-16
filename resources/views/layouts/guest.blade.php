@@ -76,9 +76,10 @@
 
                 {{ $slot }}
 
-                <p class="mt-8 text-center text-xs text-gray-400">
-                    &copy; {{ date('Y') }} Pondok Pesantren Al-Bahjah
-                </p>
+                <div class="mt-8 text-center text-xs text-gray-400 space-y-1">
+                    <div>&copy; {{ date('Y') }} Pondok Pesantren Al-Bahjah. Semua hak dilindungi.</div>
+                    <div>Developed by <a href="https://adi-muhamad.my.id" target="_blank" class="hover:text-primary-600 font-medium transition-colors underline">adi-muhamad.my.id</a></div>
+                </div>
             </div>
         </div>
     </div>
