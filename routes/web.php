@@ -55,6 +55,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{purchase}', \App\Livewire\Transaction\PurchaseShow::class)->name('show')->whereNumber('purchase');
     });
 
+    // Master Supplier (dapat diakses Admin Dapur & Kepala Divisi)
+    Route::prefix('supplier')->name('suppliers.')->group(function () {
+        Route::get('/', \App\Livewire\Supplier\SupplierManager::class)->name('index');
+    });
+
+    // Master Produk (dapat diakses Admin Dapur & Kepala Divisi)
+    Route::prefix('produk')->name('products.')->group(function () {
+        Route::get('/', \App\Livewire\Product\ProductManager::class)->name('index');
+    });
+
     /*
     |--------------------------------------------------------------------------
     | Master Data & Transaksi — hanya Admin Dapur
@@ -66,16 +76,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/pembelian/buat', \App\Livewire\Transaction\PurchaseCreate::class)->name('purchases.create');
         Route::get('/pembelian/{purchase}/edit', \App\Livewire\Transaction\PurchaseEdit::class)->name('purchases.edit')->whereNumber('purchase');
         Route::delete('/pembelian/{purchase}', [ReportController::class, 'deletePurchase'])->name('purchases.destroy');
-
-        // Master Supplier
-        Route::prefix('supplier')->name('suppliers.')->group(function () {
-            Route::get('/', \App\Livewire\Supplier\SupplierManager::class)->name('index');
-        });
-
-        // Master Produk
-        Route::prefix('produk')->name('products.')->group(function () {
-            Route::get('/', \App\Livewire\Product\ProductManager::class)->name('index');
-        });
 
         // Master Kategori & Satuan
         Route::prefix('kategori-satuan')->name('categories.')->group(function () {

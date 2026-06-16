@@ -36,12 +36,14 @@ class ProductManager extends Component
 
     public function create(): void
     {
+        $this->checkAdminDapur();
         $this->resetForm();
         $this->showModal = true;
     }
 
     public function edit(int $id): void
     {
+        $this->checkAdminDapur();
         $product = Product::findOrFail($id);
         $this->editId = $product->id;
         $this->nama_produk = $product->nama_produk;
@@ -53,6 +55,7 @@ class ProductManager extends Component
 
     public function save(): void
     {
+        $this->checkAdminDapur();
         $this->validate([
             'nama_produk' => 'required|string|max:255',
             'category_id' => 'required|exists:product_categories,id',
@@ -85,6 +88,7 @@ class ProductManager extends Component
 
     public function toggleStatus(int $id): void
     {
+        $this->checkAdminDapur();
         $product = Product::findOrFail($id);
         $product->update(['status' => !$product->status]);
         $label = $product->fresh()->status ? 'diaktifkan' : 'dinonaktifkan';
@@ -93,12 +97,14 @@ class ProductManager extends Component
 
     public function confirmDelete(int $id): void
     {
+        $this->checkAdminDapur();
         $this->deleteId = $id;
         $this->showDeleteConfirm = true;
     }
 
     public function delete(): void
     {
+        $this->checkAdminDapur();
         $product = Product::findOrFail($this->deleteId);
 
         if ($product->purchaseDetails()->exists()) {
@@ -142,5 +148,12 @@ class ProductManager extends Component
         $units = Unit::orderBy('nama_satuan')->get();
 
         return view('livewire.product.product-manager', compact('products', 'categories', 'units'));
+    }
+
+    private function checkAdminDapur(): void
+    {
+        if (!auth()->user()->isAdminDapur()) {
+            abort(403, 'Akses ditolak. Tindakan ini hanya diperbolehkan untuk Admin Dapur.');
+        }
     }
 }

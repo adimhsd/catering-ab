@@ -49,6 +49,7 @@ class SupplierManager extends Component
      */
     public function create(): void
     {
+        $this->checkAdminDapur();
         $this->resetForm();
         $this->editId = null;
         $this->showModal = true;
@@ -59,6 +60,7 @@ class SupplierManager extends Component
      */
     public function edit(int $id): void
     {
+        $this->checkAdminDapur();
         $supplier = Supplier::findOrFail($id);
         $this->editId = $supplier->id;
         $this->nama_supplier = $supplier->nama_supplier;
@@ -74,6 +76,7 @@ class SupplierManager extends Component
      */
     public function save(): void
     {
+        $this->checkAdminDapur();
         $validated = $this->validate([
             'nama_supplier' => 'required|string|max:255',
             'pic'           => 'nullable|string|max:255',
@@ -102,6 +105,7 @@ class SupplierManager extends Component
      */
     public function toggleStatus(int $id): void
     {
+        $this->checkAdminDapur();
         $supplier = Supplier::findOrFail($id);
         $supplier->update(['status' => !$supplier->status]);
 
@@ -114,6 +118,7 @@ class SupplierManager extends Component
      */
     public function confirmDelete(int $id): void
     {
+        $this->checkAdminDapur();
         $this->deleteId = $id;
         $this->showDeleteConfirm = true;
     }
@@ -123,6 +128,7 @@ class SupplierManager extends Component
      */
     public function delete(): void
     {
+        $this->checkAdminDapur();
         $supplier = Supplier::findOrFail($this->deleteId);
 
         // Cek apakah supplier punya transaksi yang terkait
@@ -165,5 +171,12 @@ class SupplierManager extends Component
             ->paginate(15);
 
         return view('livewire.supplier.supplier-manager', compact('suppliers'));
+    }
+
+    private function checkAdminDapur(): void
+    {
+        if (!auth()->user()->isAdminDapur()) {
+            abort(403, 'Akses ditolak. Tindakan ini hanya diperbolehkan untuk Admin Dapur.');
+        }
     }
 }
