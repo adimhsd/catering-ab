@@ -39,5 +39,37 @@ class SupplierSeeder extends Seeder
                 $data
             );
         }
+
+        $injectedNames = [
+            'PAK ALI',
+            'PAK DIDI TAHU',
+            'PAK DIDI PISANG',
+            'PAK SAMSURI',
+            'PAK WASOLI',
+            'BU ZUBAEDAH',
+            'BU ALIMAH',
+            'MBAK FAT',
+            'SUMBER TELOR',
+            'MAS AJIS',
+            'PAK EDI',
+            'MAS ALFIAN',
+            'PAK EDI KANCI',
+            'PAK Hj ACU',
+            'BU HJ JUJU',
+            'YUSEN',
+            'BERAS'
+        ];
+
+        foreach ($injectedNames as $name) {
+            Supplier::firstOrCreate(
+                ['nama_supplier' => $name],
+                [
+                    'pic'           => $name,
+                    'wa'            => '08123456789',
+                    'alamat'        => 'Cirebon',
+                    'status'        => true,
+                ]
+            );
+        }
     }
 }
