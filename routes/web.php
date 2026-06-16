@@ -28,6 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Profile (bawaan Breeze)
     Route::view('/profile', 'profile')->name('profile.edit');
+    Route::view('/profile-view', 'profile')->name('profile');
 
     /*
     |--------------------------------------------------------------------------
