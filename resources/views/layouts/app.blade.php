@@ -283,7 +283,8 @@
 
         {{-- Footer --}}
         <footer class="px-6 py-3 border-t border-gray-100 text-center text-xs text-gray-400">
-            &copy; {{ date('Y') }} Catering Pondok Pesantren Al-Bahjah. Semua hak dilindungi.
+            <div>&copy; {{ date('Y') }} Catering Pondok Pesantren Al-Bahjah. Semua hak dilindungi.</div>
+            <div class="mt-1">Developed by <a href="https://adi-muhamad.my.id" target="_blank" class="hover:text-primary-600 font-medium transition-colors underline">adi-muhamad.my.id</a></div>
         </footer>
     </div>
 
